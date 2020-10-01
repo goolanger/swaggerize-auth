@@ -1,0 +1,14 @@
+{{template "base" .}}
+
+{{define "action"}}Recovery{{end}}
+
+{{define "body"}}
+    <h1>Reset Password</h1>
+    <form method="post">
+        <label for="password-field">Password</label>
+        <input type="password" id="password-field" class="form-input" name="password" placeholder="enter new password">
+        <input type="hidden" name="token" value="{{.Params.Token}}">
+        <input type="submit" value="Submit" class="form-button">
+    </form>
+    <a href="/">Home</a>
+{{end}}

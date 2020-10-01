@@ -1,0 +1,24 @@
+{{template "base" .}}
+
+{{define "action"}}Message{{end}}
+
+{{define "activation"}}An activation link has been sent to your email account{{end}}
+
+{{define "recovery"}}A recovery link has been sent to your email account{{end}}
+
+{{define "activated"}}Your account has being activated{{end}}
+
+{{define "recovered"}}Password reset successfully{{end}}
+
+{{define "body"}}
+    {{if (eq .Params.Action "activation")}}
+        {{template "activation" .}}
+    {{else if (eq .Params.Action "activated")}}
+        {{template "activated" .}}
+    {{else if (eq .Params.Action "recovery")}}
+        {{template "recovery" .}}
+    {{else if (eq .Params.Action "recovered")}}
+        {{template "recovered" .}}
+    {{end}}
+    <a href="/">Go back home</a>
+{{end}}

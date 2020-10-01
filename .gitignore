@@ -1,0 +1,17 @@
+.idea
+.docker_ignore
+
+/data/logs/*
+!/data/logs/.keep
+
+/data/certs/*
+!/data/certs/.keep
+
+/data/bin/*
+!/data/bin/.keep
+
+/data/db/*
+!/data/db/.keep
+
+/data/config/*
+!/data/config/.keep

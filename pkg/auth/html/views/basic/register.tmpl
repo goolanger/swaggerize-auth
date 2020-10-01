@@ -1,0 +1,15 @@
+{{template "base" .}}
+
+{{define "action"}}Register{{end}}
+
+{{define "body"}}
+    <h1>Register</h1>
+    <form method="post">
+        <label for="email-field">Email</label>
+        <input type="text" id="email-field" name="email" placeholder="type your email" class="form-input">
+        <label for="password-field">Password</label>
+        <input type="password" id="password-field" name="password" placeholder="password" class="form-input">
+        <input type="submit" value="Submit" class="form-button">
+    </form>
+    <a href="{{.Router.AuthorizePath}}">Login</a>
+{{end}}

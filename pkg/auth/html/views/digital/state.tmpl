@@ -1,0 +1,28 @@
+{{template "base" .}}
+
+{{define "action"}}Action{{end}}
+
+{{define "body"}}
+    <h2 class="form-header">{{.Params.Action}}</h2>
+    <div class="form-division"></div>
+    <form method="post">
+        <div class="form-control">
+            <input type="text" name="email" placeholder="Type your email" class="form-input" value="">
+        </div>
+
+        <input type="hidden" name="action" value="{{.Params.Action}}"/>
+
+        <div class="form-control">
+            <input type="submit" class="btn" value="Continue">
+        </div>
+    </form>
+
+    <div class="form-division">
+        <h6>Go back to</h6>
+    </div>
+    <a href="{{.Router.AuthorizePath}}" style="text-decoration: none">
+        <div class="form-control btn">
+            Login
+        </div>
+    </a>
+{{end}}

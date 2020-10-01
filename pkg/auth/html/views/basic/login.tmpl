@@ -1,0 +1,30 @@
+{{template "base" .}}
+
+{{define "action"}}Login{{end}}
+
+{{define "body"}}
+    <h1>Login</h1>
+    <form method="post">
+        <label for="email-field">Email</label>
+        <input type="text" name="username" placeholder="email" id="email-field">
+        <label for="password-field">Password</label>
+        <input type="password" name="password" placeholder="password" id="password-field">
+
+        <input type="hidden" name="response_type" value="code">
+        <input type="hidden" name="client_id" value="{{.Params.ClientID}}">
+        <input type="hidden" name="redirect_uri" value="{{.Params.RedirectURI}}">
+        <input type="hidden" name="scope" value="{{.Params.Scope}}">
+        <input type="hidden" name="state" value="{{.Params.State}}">
+
+        <input type="submit" value="Login">
+    </form>
+
+    <a href="{{.Router.RegisterPath}}">Register</a>|
+    <a href="{{.Router.StatePath}}">Forgot your password?</a>
+
+    <div>
+        {{range .Providers}}
+            <a href="{{.Link}}">Login with {{.Name}}</a>
+        {{end}}
+    </div>
+{{end}}
