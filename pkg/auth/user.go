@@ -1,9 +1,7 @@
 package auth
 
 import (
-	"github.com/goolanger/swaggerize-auth/pkg/db"
 	"golang.org/x/crypto/bcrypt"
-	"gorm.io/gorm"
 )
 
 type User struct {
@@ -19,65 +17,51 @@ type User struct {
 	// verified
 	Verified bool `json:"verified,omitempty"`
 
-	// password
-	Password string `json:"digest,omitempty"`
+	// password digest
+	Digest string `json:"digest,omitempty"`
 }
 
-func (u *User) BeforeUpdate(_ *gorm.DB) error {
-	return u.setDigest()
-}
-
-func (u *User) BeforeCreate(_ *gorm.DB) error {
-	return u.setDigest()
-}
-
-func (u *User) setDigest() error {
-	if u.Password == "" {
-		return nil
+func (a *Auth) GetDigest(password string) (digest string, err error) {
+	data, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	if err != nil {
+		return
 	}
 
-	if pass, err := bcrypt.GenerateFromPassword([]byte(u.Password), bcrypt.DefaultCost); err != nil {
-		return err
-	} else {
-		u.Password = string(pass)
-		return nil
-	}
+	digest = string(data)
+	return
 }
 
-func GetUserByEmail(connection db.Connection, email string) (*User, error) {
+func (a *Auth) GetUserByEmail(email string) (*User, error) {
 	var user User
-	if err := connection.Execute().First(&user, "email = ?", email).Error; err != nil {
+	if err := a.connection.Execute().First(&user, "email = ?", email).Error; err != nil {
 		return nil, err
 	}
 	return &user, nil
 }
 
-func GetUserById(connection db.Connection, id int64) (*User, error) {
+func (a *Auth) GetUserById(id int64) (*User, error) {
 	var user User
-	if err := connection.Execute().First(&user, id).Error; err != nil {
+	if err := a.connection.Execute().First(&user, id).Error; err != nil {
 		return nil, err
 	}
 	return &user, nil
 }
 
-func CreateUser(connection db.Connection, email, password string, active, verified bool) (*User, error) {
-	user := User{
+func (a *Auth) CreateUser(email, password string, active, verified bool) (user *User, err error) {
+	if password, err = a.GetDigest(password); err != nil {
+		return
+	}
+
+	user = &User{
 		Email:    email,
 		Active:   active,
 		Verified: verified,
-		Password: password,
+		Digest:   password,
 	}
 
-	if err := connection.Execute().Create(&user).Error; err != nil {
+	if err = a.connection.Execute().Create(user).Error; err != nil {
 		return nil, err
 	}
 
-	return &user, nil
-}
-
-func UpdateUser(connection db.Connection, userId int64, user *User) error {
-	if err := connection.Execute().First(&User{}, userId).Updates(user).Error; err != nil {
-		return err
-	}
-	return nil
+	return
 }

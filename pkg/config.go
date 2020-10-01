@@ -50,6 +50,8 @@ func DefaultConfig(file string) ([]byte, error) {
 			ClientSecret: clientSecret,
 			ClientDomain: "localhost",
 			SecretKey:    secretKey,
+			Template:     "default",
+			Name:         "swaggerize",
 			Providers: map[string]auth.Provider{
 				"google": {
 					InfoUrl: "https://www.googleapis.com/oauth2/v2/userinfo?access_token={token}",

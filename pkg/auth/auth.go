@@ -22,6 +22,8 @@ type Auth struct {
 	ClientSecret string              `yaml:"clientsecret"`
 	ClientDomain string              `yaml:"domain"`
 	SecretKey    string              `yaml:"secretkey"`
+	Name         string              `yaml:"app"`
+	Template     string              `yaml:"template"`
 	Providers    map[string]Provider `yaml:"providers"`
 
 	server *server.Server
@@ -102,12 +104,11 @@ func (a *Auth) UserAuthorizeHandler() server.UserAuthorizationHandler {
 	}
 }
 
-//TODO: REFACTOR AND TEST
 func (a *Auth) PasswordAuthorizationHandler() server.PasswordAuthorizationHandler {
 	return func(username, password string) (userID string, err error) {
 		var user *User
 
-		user, err = GetUserByEmail(a.connection, username)
+		user, err = a.GetUserByEmail(username)
 		if err != nil {
 			return
 		}
@@ -118,7 +119,7 @@ func (a *Auth) PasswordAuthorizationHandler() server.PasswordAuthorizationHandle
 			return
 		}
 
-		if err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password)); err != nil {
+		if err = bcrypt.CompareHashAndPassword([]byte(user.Digest), []byte(password)); err != nil {
 			return
 		}
 

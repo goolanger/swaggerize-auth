@@ -48,7 +48,7 @@ func (a *Auth) CheckActionToken(tokenString string) (userId int64, action Action
 			return
 		}
 
-		return userId, claims["action"].(Action), nil
+		return userId, Action(claims["action"].(string)), nil
 	}
 
 	err = errors.New("invalid token")

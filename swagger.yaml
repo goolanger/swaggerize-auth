@@ -260,10 +260,6 @@ paths:
   /auth/session/register:
     get:
       operationId: Register
-      parameters:
-      - in: query
-        name: login-url
-        type: string
       produces:
       - text/html
       responses:

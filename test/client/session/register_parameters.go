@@ -19,7 +19,7 @@ import (
 // NewRegisterParams creates a new RegisterParams object
 // with the default values initialized.
 func NewRegisterParams() *RegisterParams {
-	var ()
+
 	return &RegisterParams{
 
 		timeout: cr.DefaultTimeout,
@@ -29,7 +29,7 @@ func NewRegisterParams() *RegisterParams {
 // NewRegisterParamsWithTimeout creates a new RegisterParams object
 // with the default values initialized, and the ability to set a timeout on a request
 func NewRegisterParamsWithTimeout(timeout time.Duration) *RegisterParams {
-	var ()
+
 	return &RegisterParams{
 
 		timeout: timeout,
@@ -39,7 +39,7 @@ func NewRegisterParamsWithTimeout(timeout time.Duration) *RegisterParams {
 // NewRegisterParamsWithContext creates a new RegisterParams object
 // with the default values initialized, and the ability to set a context for a request
 func NewRegisterParamsWithContext(ctx context.Context) *RegisterParams {
-	var ()
+
 	return &RegisterParams{
 
 		Context: ctx,
@@ -49,7 +49,7 @@ func NewRegisterParamsWithContext(ctx context.Context) *RegisterParams {
 // NewRegisterParamsWithHTTPClient creates a new RegisterParams object
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewRegisterParamsWithHTTPClient(client *http.Client) *RegisterParams {
-	var ()
+
 	return &RegisterParams{
 		HTTPClient: client,
 	}
@@ -59,10 +59,6 @@ func NewRegisterParamsWithHTTPClient(client *http.Client) *RegisterParams {
 for the register operation typically these are written to a http.Request
 */
 type RegisterParams struct {
-
-	/*LoginURL*/
-	LoginURL *string
-
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -101,17 +97,6 @@ func (o *RegisterParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithLoginURL adds the loginURL to the register params
-func (o *RegisterParams) WithLoginURL(loginURL *string) *RegisterParams {
-	o.SetLoginURL(loginURL)
-	return o
-}
-
-// SetLoginURL adds the loginUrl to the register params
-func (o *RegisterParams) SetLoginURL(loginURL *string) {
-	o.LoginURL = loginURL
-}
-
 // WriteToRequest writes these params to a swagger request
 func (o *RegisterParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -119,22 +104,6 @@ func (o *RegisterParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regi
 		return err
 	}
 	var res []error
-
-	if o.LoginURL != nil {
-
-		// query param login-url
-		var qrLoginURL string
-		if o.LoginURL != nil {
-			qrLoginURL = *o.LoginURL
-		}
-		qLoginURL := qrLoginURL
-		if qLoginURL != "" {
-			if err := r.SetQueryParam("login-url", qLoginURL); err != nil {
-				return err
-			}
-		}
-
-	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)

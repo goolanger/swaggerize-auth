@@ -46,7 +46,7 @@ run:
 	go run $(CMD_EXEC)/main \
 	--tls-certificate $(CERTS_FOLDER)/cert.pem \
 	--tls-key $(CERTS_FOLDER)/key.pem \
-	--tls-port 20441 \
+	--tls-port 20443 \
 	--port 2080
 
 # Compiles the app

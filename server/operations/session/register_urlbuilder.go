@@ -13,11 +13,7 @@ import (
 
 // RegisterURL generates an URL for the register operation
 type RegisterURL struct {
-	LoginURL *string
-
 	_basePath string
-	// avoid unkeyed usage
-	_ struct{}
 }
 
 // WithBasePath sets the base path for this url builder, only required when it's different from the
@@ -43,18 +39,6 @@ func (o *RegisterURL) Build() (*url.URL, error) {
 
 	_basePath := o._basePath
 	_result.Path = golangswaggerpaths.Join(_basePath, _path)
-
-	qs := make(url.Values)
-
-	var loginURLQ string
-	if o.LoginURL != nil {
-		loginURLQ = *o.LoginURL
-	}
-	if loginURLQ != "" {
-		qs.Set("login-url", loginURLQ)
-	}
-
-	_result.RawQuery = qs.Encode()
 
 	return &_result, nil
 }

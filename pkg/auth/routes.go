@@ -5,8 +5,6 @@ import (
 	"strings"
 )
 
-const HtmlFolder = "pkg/auth/html"
-
 type Router struct {
 
 	// application name
@@ -50,38 +48,42 @@ type Router struct {
 }
 
 func (a *Auth) DefaultRouter(params ...string) Router {
+	base := "/auth"
+
 	return Router{
-		AppName:                     "Name",
-		OauthAuthorizePath:          a.path("/oauth/authorize", params...),
-		OauthProviders:              a.path("/oauth/providers", params...),
-		OauthTokenPath:              a.path("/oauth/token", params...),
-		SessionRecoveryPath:         a.path("/session/recovery", params...),
-		SessionRegisterPath:         a.path("/session/register", params...),
-		SessionRegisterActivatePath: a.path("/session/register/activate", params...),
-		SessionStatePath:            a.path("/session/state", params...),
-		SessionStateMessagePath:     a.path("/session/state/message", params...),
-		ScopeInfoPath:               a.path("/scope/info", params...),
-		SpecsPath:                   a.path("/specs"),
-		SpecsDocsPath:               a.path("/docs"),
+		AppName:                     a.Name,
+		OauthAuthorizePath:          a.path(base+"/oauth/authorize", params...),
+		OauthProviders:              a.path(base+"/oauth/providers", params...),
+		OauthTokenPath:              a.path(base+"/oauth/token", params...),
+		SessionRecoveryPath:         a.path(base+"/session/recovery", params...),
+		SessionRegisterPath:         a.path(base+"/session/register", params...),
+		SessionRegisterActivatePath: a.path(base+"/session/register/activate", params...),
+		SessionStatePath:            a.path(base+"/session/state", params...),
+		SessionStateMessagePath:     a.path(base+"/session/state/message", params...),
+		ScopeInfoPath:               a.path(base+"/scope/info", params...),
+		SpecsPath:                   a.path(base + "/specs"),
+		SpecsDocsPath:               a.path(base + "/docs"),
 		Params:                      strings.Join(params, "&"),
 	}
 }
 
-// PRIVATE
 func (a *Auth) path(path string, params ...string) string {
 	if len(params) > 0 {
 		path += "?" + strings.Join(params, "&")
 	}
-	return "/auth" + path
+	return path
 }
 
-// HTML
+// HTML FOLDER
+
+const HtmlFolder = "pkg/auth/html/"
+
 func (a *Auth) viewPage(format string, args ...interface{}) string {
 	page := fmt.Sprintf(format, args...)
-	return HtmlFolder + "/views" + page
+	return HtmlFolder + a.Template + "/views" + page
 }
 
 func (a *Auth) mailPage(format string, args ...interface{}) string {
 	page := fmt.Sprintf(format, args...)
-	return HtmlFolder + "/mail" + page
+	return HtmlFolder + a.Template + "/mail" + page
 }

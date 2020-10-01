@@ -412,13 +412,6 @@ func init() {
           "Session"
         ],
         "operationId": "Register",
-        "parameters": [
-          {
-            "type": "string",
-            "name": "login-url",
-            "in": "query"
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -1056,13 +1049,6 @@ func init() {
           "Session"
         ],
         "operationId": "Register",
-        "parameters": [
-          {
-            "type": "string",
-            "name": "login-url",
-            "in": "query"
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK"

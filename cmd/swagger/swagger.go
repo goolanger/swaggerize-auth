@@ -133,8 +133,7 @@ func main() {
 			// REGISTER
 			api.Route(path.Scope("/register", "Register").Routes(
 				api.Route(path.Get(path.Inherit, path.Inherit)).
-					Produces(mimes.TextHtml).
-					Params(params.Query("login-url", model.String())),
+					Produces(mimes.TextHtml),
 				api.Route(path.Post(path.Inherit, "Submit")).
 					Produces(mimes.ApplicationJson).
 					Consumes("application/x-www-form-urlencoded").
