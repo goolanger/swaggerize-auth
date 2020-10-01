@@ -52,7 +52,7 @@ type StateMessageOK struct {
 }
 
 func (o *StateMessageOK) Error() string {
-	return fmt.Sprintf("[GET /api/session/state/message][%d] stateMessageOK ", 200)
+	return fmt.Sprintf("[GET /auth/session/state/message][%d] stateMessageOK ", 200)
 }
 
 func (o *StateMessageOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -74,7 +74,7 @@ type StateMessageInternalServerError struct {
 }
 
 func (o *StateMessageInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /api/session/state/message][%d] stateMessageInternalServerError  %+v", 500, o.Payload)
+	return fmt.Sprintf("[GET /auth/session/state/message][%d] stateMessageInternalServerError  %+v", 500, o.Payload)
 }
 
 func (o *StateMessageInternalServerError) GetPayload() string {

@@ -1,6 +1,7 @@
 package auth
 
 import (
+	template "github.com/arschles/go-bindata-html-template"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/go-oauth2/oauth2/v4/errors"
 	"github.com/go-oauth2/oauth2/v4/generates"
@@ -21,19 +22,19 @@ type Auth struct {
 	ClientSecret string              `yaml:"clientsecret"`
 	ClientDomain string              `yaml:"domain"`
 	SecretKey    string              `yaml:"secretkey"`
-	Template     string              `yaml:"template"`
 	Providers    map[string]Provider `yaml:"providers"`
 
 	server *server.Server
 
 	mailer     mail.Mailer
 	connection db.Connection
+	assets     template.AssetFunc
 }
 
-func (a *Auth) Init(connection db.Connection, mailer mail.Mailer) error {
+func (a *Auth) Init(connection db.Connection, mailer mail.Mailer, assets template.AssetFunc) error {
 	// Init Db Connection
 	a.connection = connection
-	if err := a.connection.Connect(); err != nil {
+	if err := a.connection.Init(); err != nil {
 		return err
 	}
 
@@ -42,6 +43,9 @@ func (a *Auth) Init(connection db.Connection, mailer mail.Mailer) error {
 	if err := a.mailer.Init(); err != nil {
 		return err
 	}
+
+	// Init Assets
+	a.assets = assets
 
 	if err := a.connection.Execute().AutoMigrate(&User{}); err != nil {
 		return err

@@ -43,7 +43,7 @@ func (o *ProviderURL) SetBasePath(bp string) {
 func (o *ProviderURL) Build() (*url.URL, error) {
 	var _result url.URL
 
-	var _path = "/api/oauth/providers/{provider}"
+	var _path = "/auth/oauth/providers/{provider}"
 
 	provider := o.Provider
 	if provider != "" {

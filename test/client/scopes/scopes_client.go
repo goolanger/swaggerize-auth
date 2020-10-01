@@ -44,7 +44,7 @@ func (a *Client) Info(params *InfoParams, authInfo runtime.ClientAuthInfoWriter)
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "Info",
 		Method:             "GET",
-		PathPattern:        "/api/scope/info",
+		PathPattern:        "/auth/scope/info",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},

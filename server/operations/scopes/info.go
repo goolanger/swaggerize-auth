@@ -33,7 +33,7 @@ func NewInfo(ctx *middleware.Context, handler InfoHandler) *Info {
 	return &Info{Context: ctx, Handler: handler}
 }
 
-/*Info swagger:route GET /api/scope/info Scopes info
+/*Info swagger:route GET /auth/scope/info Scopes info
 
 Info info API
 

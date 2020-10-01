@@ -58,7 +58,7 @@ type RegisterSubmitOK struct {
 }
 
 func (o *RegisterSubmitOK) Error() string {
-	return fmt.Sprintf("[POST /api/session/register][%d] registerSubmitOK ", 200)
+	return fmt.Sprintf("[POST /auth/session/register][%d] registerSubmitOK ", 200)
 }
 
 func (o *RegisterSubmitOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -79,7 +79,7 @@ type RegisterSubmitConflict struct {
 }
 
 func (o *RegisterSubmitConflict) Error() string {
-	return fmt.Sprintf("[POST /api/session/register][%d] registerSubmitConflict ", 409)
+	return fmt.Sprintf("[POST /auth/session/register][%d] registerSubmitConflict ", 409)
 }
 
 func (o *RegisterSubmitConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -101,7 +101,7 @@ type RegisterSubmitInternalServerError struct {
 }
 
 func (o *RegisterSubmitInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /api/session/register][%d] registerSubmitInternalServerError  %+v", 500, o.Payload)
+	return fmt.Sprintf("[POST /auth/session/register][%d] registerSubmitInternalServerError  %+v", 500, o.Payload)
 }
 
 func (o *RegisterSubmitInternalServerError) GetPayload() string {

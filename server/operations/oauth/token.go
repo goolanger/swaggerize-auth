@@ -31,7 +31,7 @@ func NewToken(ctx *middleware.Context, handler TokenHandler) *Token {
 	return &Token{Context: ctx, Handler: handler}
 }
 
-/*Token swagger:route POST /api/oauth/token Oauth token
+/*Token swagger:route POST /auth/oauth/token Oauth token
 
 Token token API
 

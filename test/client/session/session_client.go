@@ -58,7 +58,7 @@ func (a *Client) Recovery(params *RecoveryParams) (*RecoveryOK, error) {
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "Recovery",
 		Method:             "GET",
-		PathPattern:        "/api/session/recovery",
+		PathPattern:        "/auth/session/recovery",
 		ProducesMediaTypes: []string{"text/html"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
@@ -92,7 +92,7 @@ func (a *Client) RecoverySubmit(params *RecoverySubmitParams) (*RecoverySubmitOK
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "RecoverySubmit",
 		Method:             "POST",
-		PathPattern:        "/api/session/recovery",
+		PathPattern:        "/auth/session/recovery",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/x-www-form-urlencoded"},
 		Schemes:            []string{"http", "https"},
@@ -126,7 +126,7 @@ func (a *Client) Register(params *RegisterParams) (*RegisterOK, error) {
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "Register",
 		Method:             "GET",
-		PathPattern:        "/api/session/register",
+		PathPattern:        "/auth/session/register",
 		ProducesMediaTypes: []string{"text/html"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
@@ -160,7 +160,7 @@ func (a *Client) RegisterActivate(params *RegisterActivateParams) (*RegisterActi
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "RegisterActivate",
 		Method:             "GET",
-		PathPattern:        "/api/session/register/activate",
+		PathPattern:        "/auth/session/register/activate",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
@@ -194,7 +194,7 @@ func (a *Client) RegisterSubmit(params *RegisterSubmitParams) (*RegisterSubmitOK
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "RegisterSubmit",
 		Method:             "POST",
-		PathPattern:        "/api/session/register",
+		PathPattern:        "/auth/session/register",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/x-www-form-urlencoded"},
 		Schemes:            []string{"http", "https"},
@@ -228,7 +228,7 @@ func (a *Client) State(params *StateParams) (*StateOK, error) {
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "State",
 		Method:             "GET",
-		PathPattern:        "/api/session/state",
+		PathPattern:        "/auth/session/state",
 		ProducesMediaTypes: []string{"text/html"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
@@ -262,7 +262,7 @@ func (a *Client) StateMessage(params *StateMessageParams) (*StateMessageOK, erro
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "StateMessage",
 		Method:             "GET",
-		PathPattern:        "/api/session/state/message",
+		PathPattern:        "/auth/session/state/message",
 		ProducesMediaTypes: []string{"text/html"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
@@ -296,7 +296,7 @@ func (a *Client) StateSubmit(params *StateSubmitParams) (*StateSubmitOK, error) 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "StateSubmit",
 		Method:             "POST",
-		PathPattern:        "/api/session/state",
+		PathPattern:        "/auth/session/state",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/x-www-form-urlencoded"},
 		Schemes:            []string{"http", "https"},

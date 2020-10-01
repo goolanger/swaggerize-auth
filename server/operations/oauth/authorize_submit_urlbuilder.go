@@ -35,7 +35,7 @@ func (o *AuthorizeSubmitURL) SetBasePath(bp string) {
 func (o *AuthorizeSubmitURL) Build() (*url.URL, error) {
 	var _result url.URL
 
-	var _path = "/api/oauth/authorize"
+	var _path = "/auth/oauth/authorize"
 
 	_basePath := o._basePath
 	_result.Path = golangswaggerpaths.Join(_basePath, _path)

@@ -29,7 +29,7 @@ func NewProvider(ctx *middleware.Context, handler ProviderHandler) *Provider {
 	return &Provider{Context: ctx, Handler: handler}
 }
 
-/*Provider swagger:route GET /api/oauth/providers/{provider} Oauth provider
+/*Provider swagger:route GET /auth/oauth/providers/{provider} Oauth provider
 
 Provider provider API
 

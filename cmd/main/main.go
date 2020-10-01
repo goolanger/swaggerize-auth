@@ -27,8 +27,8 @@ func main() {
 	defer server.Shutdown()
 
 	parser := flags.NewParser(server, flags.Default)
-	parser.ShortDescription = "University Staff"
-	parser.LongDescription = "This website will stand for the administration and information digital support for any university."
+	parser.ShortDescription = "Authentication"
+	parser.LongDescription = "Oauth 2.0 api reference"
 	server.ConfigureFlags()
 	for _, optsGroup := range api.CommandLineOptionsGroups {
 		_, err := parser.AddGroup(optsGroup.ShortDescription, optsGroup.LongDescription, optsGroup.Options)

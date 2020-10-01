@@ -50,7 +50,7 @@ func (a *Client) Authorize(params *AuthorizeParams) (*AuthorizeOK, error) {
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "Authorize",
 		Method:             "GET",
-		PathPattern:        "/api/oauth/authorize",
+		PathPattern:        "/auth/oauth/authorize",
 		ProducesMediaTypes: []string{"text/html"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
@@ -84,7 +84,7 @@ func (a *Client) AuthorizeSubmit(params *AuthorizeSubmitParams) (*AuthorizeSubmi
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "AuthorizeSubmit",
 		Method:             "POST",
-		PathPattern:        "/api/oauth/authorize",
+		PathPattern:        "/auth/oauth/authorize",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/x-www-form-urlencoded"},
 		Schemes:            []string{"http", "https"},
@@ -118,7 +118,7 @@ func (a *Client) Provider(params *ProviderParams) error {
 	_, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "Provider",
 		Method:             "GET",
-		PathPattern:        "/api/oauth/providers/{provider}",
+		PathPattern:        "/auth/oauth/providers/{provider}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
@@ -145,7 +145,7 @@ func (a *Client) Token(params *TokenParams) (*TokenOK, error) {
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "Token",
 		Method:             "POST",
-		PathPattern:        "/api/oauth/token",
+		PathPattern:        "/auth/oauth/token",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/x-www-form-urlencoded"},
 		Schemes:            []string{"http", "https"},

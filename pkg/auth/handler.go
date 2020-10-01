@@ -3,7 +3,10 @@ package auth
 import (
 	"encoding/json"
 	"github.com/arschles/go-bindata-html-template"
+	"github.com/go-openapi/runtime/middleware"
+	"github.com/goolanger/swaggerize-auth/pkg/specs"
 	"net/http"
+	"net/url"
 	"strings"
 )
 
@@ -13,19 +16,55 @@ type ViewPack struct {
 	Params    interface{}
 }
 
+type AuthorizeParams struct {
+	/*
+	  Required: true
+	  In: query
+	*/
+	ClientID string
+	/*
+	  Required: true
+	  In: query
+	*/
+	RedirectURI string
+	/*
+	  Required: true
+	  In: query
+	*/
+	Scope string
+	/*
+	  Required: true
+	  In: query
+	*/
+	State string
+}
+
+type ProviderParams struct {
+	/*
+	  Required: true
+	  In: query
+	*/
+	Code string
+	/*
+	  Required: true
+	  In: path
+	*/
+	Provider string
+	/*
+	  Required: true
+	  In: query
+	*/
+	State string
+}
+
 func (a *Auth) Handle(next http.Handler) http.Handler {
 	routes := a.DefaultRouter()
 
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 		// AUTHORIZE (VIEW)
-		if strings.HasPrefix(r.URL.Path, routes.AuthorizePath) && r.Method == "get" {
-			params := struct {
-				ClientID    string
-				RedirectURI string
-				Scope       string
-				State       string
-			}{
+		if strings.HasPrefix(r.URL.Path, routes.OauthAuthorizePath) && r.Method == "GET" {
+			params := AuthorizeParams{
 				ClientID:    r.FormValue("client_id"),
 				RedirectURI: r.FormValue("redirect_uri"),
 				Scope:       r.FormValue("scope"),
@@ -41,101 +80,115 @@ func (a *Auth) Handle(next http.Handler) http.Handler {
 
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
 			}
 
 			viewPack := ViewPack{
-				routes,
+				a.DefaultRouter(r.URL.RawQuery),
 				a.DefaultProviders(string(state)),
 				params,
 			}
 
-			viewPack.Router.RegisterPath = a.path(routes.RegisterPath, viewPack.Router.Params)
-			viewPack.Router.StatePath = a.path(routes.StatePath, viewPack.Router.Params, "action=recovery")
+			viewPack.Router.SessionStatePath = a.path(routes.SessionStatePath, "action=recovery")
 
 			a.serveTemplate(w, viewPack, files...)
 		} else
 
 		// AUTHORIZE SUBMIT
-		if strings.HasPrefix(r.URL.Path, routes.AuthorizePath) && r.Method == "post" {
+		if strings.HasPrefix(r.URL.Path, routes.OauthAuthorizePath) && r.Method == "POST" {
 			if err := a.server.HandleAuthorizeRequest(w, r); err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
 			}
 		} else
 
 		// TOKEN
-		if strings.HasPrefix(r.URL.Path, routes.TokenPath) && r.Method == "post" {
+		if strings.HasPrefix(r.URL.Path, routes.OauthTokenPath) && r.Method == "POST" {
 			if err := a.server.HandleTokenRequest(w, r); err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
 			}
 		} else
 
 		// PROVIDERS
-		if strings.HasPrefix(r.URL.Path, "routes") && r.Method == "post" {
-			//	userInfo := struct {
-			//		ID, Email string
-			//		Verified  bool
-			//	}{}
-			//
-			//	var state oauth.AuthorizeParams
-			//	if err := json.Unmarshal([]byte(params.State), &state); err != nil {
-			//		return oauth.NewProviderInternalServerError().WithPayload(err.Error())
-			//	}
-			//
-			//	switch params.Provider {
-			//	case "google":
-			//		var info struct {
-			//			ID       string
-			//			Email    string
-			//			Verified bool `json:"verified_email"`
-			//		}
-			//
-			//		if err := a.OauthUserInfo(params.Provider, params.Code, &info); err != nil {
-			//			return oauth.NewProviderInternalServerError().WithPayload(err.Error())
-			//		}
-			//
-			//		userInfo.ID = info.ID
-			//		userInfo.Email = info.Email
-			//		userInfo.Verified = info.Verified
-			//	default:
-			//		return oauth.NewProviderInternalServerError().WithPayload("no configuration for provider: " + params.Provider)
-			//	}
-			//
-			//	var (
-			//		user *User
-			//		err  error
-			//	)
-			//
-			//	if user, err = a.GetUserByEmail(userInfo.Email, nil); err != nil {
-			//		if user, err = a.createUser(userInfo.Email, userInfo.ID, false, userInfo.Verified); err != nil {
-			//			return oauth.NewProviderInternalServerError().WithPayload(err.Error())
-			//		}
-			//	} else {
-			//		if user, err = a.updateUserPassword(user, strfmt.Password(userInfo.ID)); err != nil {
-			//			return session.NewRecoverySubmitInternalServerError().WithPayload(err.Error())
-			//		}
-			//	}
-			//
-			//	var values = url.Values(map[string][]string{
-			//		"response_type": {"code"},
-			//		"redirect_uri":  {state.RedirectURI},
-			//		"client_id":     {state.ClientID},
-			//		"state":         {state.State},
-			//		"scope":         {state.Scope},
-			//		"username":      {userInfo.Email},
-			//		"password":      {userInfo.ID},
-			//	})
-			//
-			//	request := &http.Request{Form: values, Method: "POST"}
-			//
-			//	return middleware.ResponderFunc(func(w http.ResponseWriter, p runtime.Producer) {
-			//		if err := a.HandleAuthorizeRequest(w, request); err != nil {
-			//			http.Error(w, "this is the error"+err.Error(), 500)
-			//		}
-			//	})
+		if strings.HasPrefix(r.URL.Path, routes.OauthProviders) && r.Method == "GET" {
+			params := ProviderParams{
+				Code:     r.URL.Query().Get("code"),
+				Provider: r.URL.Path[len(routes.OauthProviders)+1:],
+				State:    r.URL.Query().Get("state"),
+			}
+
+			var state AuthorizeParams
+			if err := json.Unmarshal([]byte(params.State), &state); err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+
+			userInfo := struct {
+				ID       string
+				Email    string
+				Verified bool `json:"verified_email"`
+			}{}
+
+			if err := a.OauthUserInfo(params.Provider, params.Code, &userInfo); err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+
+			var (
+				user *User
+				err  error
+			)
+
+			if user, err = GetUserByEmail(a.connection, userInfo.Email); err != nil {
+				if user, err = CreateUser(a.connection, userInfo.Email, userInfo.ID, false, userInfo.Verified); err != nil {
+					http.Error(w, err.Error(), http.StatusInternalServerError)
+					return
+				}
+			} else {
+				user.Password = userInfo.ID
+				if err = UpdateUser(a.connection, user.ID, user); err != nil {
+					http.Error(w, err.Error(), http.StatusInternalServerError)
+					return
+				}
+			}
+
+			var values = url.Values(map[string][]string{
+				"response_type": {"code"},
+				"redirect_uri":  {state.RedirectURI},
+				"client_id":     {state.ClientID},
+				"state":         {state.State},
+				"scope":         {state.Scope},
+				"username":      {userInfo.Email},
+				"password":      {userInfo.ID},
+			})
+
+			request := &http.Request{Form: values, Method: "POST"}
+
+			if err := a.server.HandleAuthorizeRequest(w, request); err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+
+		} else
+
+		// SPECS
+		if strings.HasPrefix(r.URL.Path, routes.SpecsPath) && r.Method == "GET" {
+			if _, err := w.Write(specs.MustAsset("swagger.yaml")); err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+		} else
+
+		// SPECS DOCS
+		if strings.HasPrefix(r.URL.Path, routes.SpecsDocsPath) && r.Method == "GET" {
+			middleware.Redoc(middleware.RedocOpts{
+				Path:    routes.SpecsDocsPath,
+				SpecURL: routes.SpecsPath,
+			}, nil).ServeHTTP(w, r)
 		} else {
 			next.ServeHTTP(w, r)
 		}
-
 	})
 	//
 	//api.OauthProviderHandler = oauth.ProviderHandlerFunc(func(params oauth.ProviderParams) middleware.Responder {
@@ -178,7 +231,7 @@ func (a *Auth) Handle(next http.Handler) http.Handler {
 	//	url := a.stateMessagePath("action=recovered")
 	//
 	//	return middleware.ResponderFunc(func(w http.ResponseWriter, r runtime.Producer) {
-	//		http.Redirect(w, params.HTTPRequest, url, http.StatusSeeOther)
+	//		http.Link(w, params.HTTPRequest, url, http.StatusSeeOther)
 	//	})
 	//})
 	//
@@ -194,7 +247,7 @@ func (a *Auth) Handle(next http.Handler) http.Handler {
 	//		Params: params,
 	//	}
 	//
-	//	viewPack.Router.AuthorizePath = a.authorizePath(string(viewPack.Router.Params))
+	//	viewPack.Router.OauthAuthorizePath = a.authorizePath(string(viewPack.Router.Params))
 	//
 	//	return serveTemplate(viewPack, files...)
 	//})
@@ -214,7 +267,7 @@ func (a *Auth) Handle(next http.Handler) http.Handler {
 	//	url := a.stateMessagePath("action=activation")
 	//
 	//	return middleware.ResponderFunc(func(w http.ResponseWriter, r runtime.Producer) {
-	//		http.Redirect(w, params.HTTPRequest, url, http.StatusSeeOther)
+	//		http.Link(w, params.HTTPRequest, url, http.StatusSeeOther)
 	//	})
 	//})
 	//
@@ -241,7 +294,7 @@ func (a *Auth) Handle(next http.Handler) http.Handler {
 	//	url := a.stateMessagePath("action=activated")
 	//
 	//	return middleware.ResponderFunc(func(w http.ResponseWriter, r runtime.Producer) {
-	//		http.Redirect(w, params.HTTPRequest, url, http.StatusSeeOther)
+	//		http.Link(w, params.HTTPRequest, url, http.StatusSeeOther)
 	//	})
 	//})
 	//
@@ -257,7 +310,7 @@ func (a *Auth) Handle(next http.Handler) http.Handler {
 	//		Params: params,
 	//	}
 	//
-	//	viewPack.Router.AuthorizePath = a.authorizePath(string(viewPack.Router.Params))
+	//	viewPack.Router.OauthAuthorizePath = a.authorizePath(string(viewPack.Router.Params))
 	//
 	//	return serveTemplate(viewPack, files...)
 	//})
@@ -294,7 +347,7 @@ func (a *Auth) Handle(next http.Handler) http.Handler {
 	//	url := a.stateMessagePath("action=" + params.Action)
 	//
 	//	return middleware.ResponderFunc(func(w http.ResponseWriter, r runtime.Producer) {
-	//		http.Redirect(w, params.HTTPRequest, url, http.StatusSeeOther)
+	//		http.Link(w, params.HTTPRequest, url, http.StatusSeeOther)
 	//	})
 	//})
 	//
@@ -323,8 +376,7 @@ func (a *Auth) Handle(next http.Handler) http.Handler {
 }
 
 func (a *Auth) serveTemplate(w http.ResponseWriter, data interface{}, files ...string) {
-	ts, err := template.New("tmpl", Asset).ParseFiles(files...)
-	//ts, err := htmlt.ParseFiles(files...)
+	ts, err := template.New("tmpl", a.assets).ParseFiles(files...)
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)

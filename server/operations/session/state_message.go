@@ -29,7 +29,7 @@ func NewStateMessage(ctx *middleware.Context, handler StateMessageHandler) *Stat
 	return &StateMessage{Context: ctx, Handler: handler}
 }
 
-/*StateMessage swagger:route GET /api/session/state/message Session stateMessage
+/*StateMessage swagger:route GET /auth/session/state/message Session stateMessage
 
 StateMessage state message API
 

@@ -51,3 +51,33 @@ func GetUserByEmail(connection db.Connection, email string) (*User, error) {
 	}
 	return &user, nil
 }
+
+func GetUserById(connection db.Connection, id int64) (*User, error) {
+	var user User
+	if err := connection.Execute().First(&user, id).Error; err != nil {
+		return nil, err
+	}
+	return &user, nil
+}
+
+func CreateUser(connection db.Connection, email, password string, active, verified bool) (*User, error) {
+	user := User{
+		Email:    email,
+		Active:   active,
+		Verified: verified,
+		Password: password,
+	}
+
+	if err := connection.Execute().Create(&user).Error; err != nil {
+		return nil, err
+	}
+
+	return &user, nil
+}
+
+func UpdateUser(connection db.Connection, userId int64, user *User) error {
+	if err := connection.Execute().First(&User{}, userId).Updates(user).Error; err != nil {
+		return err
+	}
+	return nil
+}

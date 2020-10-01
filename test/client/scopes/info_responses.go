@@ -54,7 +54,7 @@ type InfoOK struct {
 }
 
 func (o *InfoOK) Error() string {
-	return fmt.Sprintf("[GET /api/scope/info][%d] infoOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /auth/scope/info][%d] infoOK  %+v", 200, o.Payload)
 }
 
 func (o *InfoOK) GetPayload() *InfoOKBody {
@@ -87,7 +87,7 @@ type InfoInternalServerError struct {
 }
 
 func (o *InfoInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /api/scope/info][%d] infoInternalServerError  %+v", 500, o.Payload)
+	return fmt.Sprintf("[GET /auth/scope/info][%d] infoInternalServerError  %+v", 500, o.Payload)
 }
 
 func (o *InfoInternalServerError) GetPayload() string {

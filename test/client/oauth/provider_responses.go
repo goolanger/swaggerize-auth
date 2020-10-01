@@ -47,7 +47,7 @@ type ProviderInternalServerError struct {
 }
 
 func (o *ProviderInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /api/oauth/providers/{provider}][%d] providerInternalServerError  %+v", 500, o.Payload)
+	return fmt.Sprintf("[GET /auth/oauth/providers/{provider}][%d] providerInternalServerError  %+v", 500, o.Payload)
 }
 
 func (o *ProviderInternalServerError) GetPayload() string {

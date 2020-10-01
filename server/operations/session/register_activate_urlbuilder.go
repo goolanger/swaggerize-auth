@@ -39,7 +39,7 @@ func (o *RegisterActivateURL) SetBasePath(bp string) {
 func (o *RegisterActivateURL) Build() (*url.URL, error) {
 	var _result url.URL
 
-	var _path = "/api/session/register/activate"
+	var _path = "/auth/session/register/activate"
 
 	_basePath := o._basePath
 	_result.Path = golangswaggerpaths.Join(_basePath, _path)

@@ -52,7 +52,7 @@ type AuthorizeOK struct {
 }
 
 func (o *AuthorizeOK) Error() string {
-	return fmt.Sprintf("[GET /api/oauth/authorize][%d] authorizeOK ", 200)
+	return fmt.Sprintf("[GET /auth/oauth/authorize][%d] authorizeOK ", 200)
 }
 
 func (o *AuthorizeOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -74,7 +74,7 @@ type AuthorizeInternalServerError struct {
 }
 
 func (o *AuthorizeInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /api/oauth/authorize][%d] authorizeInternalServerError  %+v", 500, o.Payload)
+	return fmt.Sprintf("[GET /auth/oauth/authorize][%d] authorizeInternalServerError  %+v", 500, o.Payload)
 }
 
 func (o *AuthorizeInternalServerError) GetPayload() string {

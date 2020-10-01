@@ -29,7 +29,7 @@ func NewAuthorize(ctx *middleware.Context, handler AuthorizeHandler) *Authorize 
 	return &Authorize{Context: ctx, Handler: handler}
 }
 
-/*Authorize swagger:route GET /api/oauth/authorize Oauth authorize
+/*Authorize swagger:route GET /auth/oauth/authorize Oauth authorize
 
 Authorize authorize API
 

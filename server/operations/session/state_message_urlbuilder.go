@@ -39,7 +39,7 @@ func (o *StateMessageURL) SetBasePath(bp string) {
 func (o *StateMessageURL) Build() (*url.URL, error) {
 	var _result url.URL
 
-	var _path = "/api/session/state/message"
+	var _path = "/auth/session/state/message"
 
 	_basePath := o._basePath
 	_result.Path = golangswaggerpaths.Join(_basePath, _path)

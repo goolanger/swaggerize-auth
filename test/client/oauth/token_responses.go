@@ -54,7 +54,7 @@ type TokenOK struct {
 }
 
 func (o *TokenOK) Error() string {
-	return fmt.Sprintf("[POST /api/oauth/token][%d] tokenOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[POST /auth/oauth/token][%d] tokenOK  %+v", 200, o.Payload)
 }
 
 func (o *TokenOK) GetPayload() *TokenOKBody {
@@ -87,7 +87,7 @@ type TokenInternalServerError struct {
 }
 
 func (o *TokenInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /api/oauth/token][%d] tokenInternalServerError  %+v", 500, o.Payload)
+	return fmt.Sprintf("[POST /auth/oauth/token][%d] tokenInternalServerError  %+v", 500, o.Payload)
 }
 
 func (o *TokenInternalServerError) GetPayload() string {

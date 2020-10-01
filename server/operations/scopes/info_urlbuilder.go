@@ -35,7 +35,7 @@ func (o *InfoURL) SetBasePath(bp string) {
 func (o *InfoURL) Build() (*url.URL, error) {
 	var _result url.URL
 
-	var _path = "/api/scope/info"
+	var _path = "/auth/scope/info"
 
 	_basePath := o._basePath
 	_result.Path = golangswaggerpaths.Join(_basePath, _path)

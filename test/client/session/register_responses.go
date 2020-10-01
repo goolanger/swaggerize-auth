@@ -52,7 +52,7 @@ type RegisterOK struct {
 }
 
 func (o *RegisterOK) Error() string {
-	return fmt.Sprintf("[GET /api/session/register][%d] registerOK ", 200)
+	return fmt.Sprintf("[GET /auth/session/register][%d] registerOK ", 200)
 }
 
 func (o *RegisterOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -74,7 +74,7 @@ type RegisterInternalServerError struct {
 }
 
 func (o *RegisterInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /api/session/register][%d] registerInternalServerError  %+v", 500, o.Payload)
+	return fmt.Sprintf("[GET /auth/session/register][%d] registerInternalServerError  %+v", 500, o.Payload)
 }
 
 func (o *RegisterInternalServerError) GetPayload() string {

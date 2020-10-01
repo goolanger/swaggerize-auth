@@ -35,7 +35,7 @@ func (o *TokenURL) SetBasePath(bp string) {
 func (o *TokenURL) Build() (*url.URL, error) {
 	var _result url.URL
 
-	var _path = "/api/oauth/token"
+	var _path = "/auth/oauth/token"
 
 	_basePath := o._basePath
 	_result.Path = golangswaggerpaths.Join(_basePath, _path)

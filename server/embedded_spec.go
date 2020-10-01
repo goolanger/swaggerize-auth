@@ -24,9 +24,8 @@ func init() {
   ],
   "swagger": "2.0",
   "info": {
-    "description": "This website will stand for the administration and information digital support for any university.",
-    "title": "University Staff",
-    "termsOfService": "https://ulikeit.io/terms/",
+    "description": "Oauth 2.0 api reference",
+    "title": "Authentication",
     "contact": {
       "name": "Amaury",
       "url": "https://amaurydiaz.github.io",
@@ -38,9 +37,8 @@ func init() {
     },
     "version": "0.1.0"
   },
-  "host": "localhost:20443",
   "paths": {
-    "/api/oauth/authorize": {
+    "/auth/oauth/authorize": {
       "get": {
         "security": [],
         "produces": [
@@ -158,7 +156,7 @@ func init() {
         }
       }
     },
-    "/api/oauth/providers/{provider}": {
+    "/auth/oauth/providers/{provider}": {
       "get": {
         "security": [],
         "tags": [
@@ -195,7 +193,7 @@ func init() {
         }
       }
     },
-    "/api/oauth/token": {
+    "/auth/oauth/token": {
       "post": {
         "security": [],
         "consumes": [
@@ -293,7 +291,7 @@ func init() {
         }
       }
     },
-    "/api/scope/info": {
+    "/auth/scope/info": {
       "get": {
         "security": [
           {
@@ -334,7 +332,7 @@ func init() {
         }
       }
     },
-    "/api/session/recovery": {
+    "/auth/session/recovery": {
       "get": {
         "security": [],
         "produces": [
@@ -404,7 +402,7 @@ func init() {
         }
       }
     },
-    "/api/session/register": {
+    "/auth/session/register": {
       "get": {
         "security": [],
         "produces": [
@@ -475,7 +473,7 @@ func init() {
         }
       }
     },
-    "/api/session/register/activate": {
+    "/auth/session/register/activate": {
       "get": {
         "security": [],
         "tags": [
@@ -503,7 +501,7 @@ func init() {
         }
       }
     },
-    "/api/session/state": {
+    "/auth/session/state": {
       "get": {
         "security": [],
         "produces": [
@@ -580,7 +578,7 @@ func init() {
         }
       }
     },
-    "/api/session/state/message": {
+    "/auth/session/state/message": {
       "get": {
         "security": [],
         "produces": [
@@ -670,9 +668,8 @@ func init() {
   ],
   "swagger": "2.0",
   "info": {
-    "description": "This website will stand for the administration and information digital support for any university.",
-    "title": "University Staff",
-    "termsOfService": "https://ulikeit.io/terms/",
+    "description": "Oauth 2.0 api reference",
+    "title": "Authentication",
     "contact": {
       "name": "Amaury",
       "url": "https://amaurydiaz.github.io",
@@ -684,9 +681,8 @@ func init() {
     },
     "version": "0.1.0"
   },
-  "host": "localhost:20443",
   "paths": {
-    "/api/oauth/authorize": {
+    "/auth/oauth/authorize": {
       "get": {
         "security": [],
         "produces": [
@@ -804,7 +800,7 @@ func init() {
         }
       }
     },
-    "/api/oauth/providers/{provider}": {
+    "/auth/oauth/providers/{provider}": {
       "get": {
         "security": [],
         "tags": [
@@ -841,7 +837,7 @@ func init() {
         }
       }
     },
-    "/api/oauth/token": {
+    "/auth/oauth/token": {
       "post": {
         "security": [],
         "consumes": [
@@ -939,7 +935,7 @@ func init() {
         }
       }
     },
-    "/api/scope/info": {
+    "/auth/scope/info": {
       "get": {
         "security": [
           {
@@ -980,7 +976,7 @@ func init() {
         }
       }
     },
-    "/api/session/recovery": {
+    "/auth/session/recovery": {
       "get": {
         "security": [],
         "produces": [
@@ -1050,7 +1046,7 @@ func init() {
         }
       }
     },
-    "/api/session/register": {
+    "/auth/session/register": {
       "get": {
         "security": [],
         "produces": [
@@ -1121,7 +1117,7 @@ func init() {
         }
       }
     },
-    "/api/session/register/activate": {
+    "/auth/session/register/activate": {
       "get": {
         "security": [],
         "tags": [
@@ -1149,7 +1145,7 @@ func init() {
         }
       }
     },
-    "/api/session/state": {
+    "/auth/session/state": {
       "get": {
         "security": [],
         "produces": [
@@ -1226,7 +1222,7 @@ func init() {
         }
       }
     },
-    "/api/session/state/message": {
+    "/auth/session/state/message": {
       "get": {
         "security": [],
         "produces": [

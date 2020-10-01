@@ -29,7 +29,7 @@ func NewRegisterSubmit(ctx *middleware.Context, handler RegisterSubmitHandler) *
 	return &RegisterSubmit{Context: ctx, Handler: handler}
 }
 
-/*RegisterSubmit swagger:route POST /api/session/register Session registerSubmit
+/*RegisterSubmit swagger:route POST /auth/session/register Session registerSubmit
 
 RegisterSubmit register submit API
 

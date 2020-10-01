@@ -29,7 +29,7 @@ func NewRecovery(ctx *middleware.Context, handler RecoveryHandler) *Recovery {
 	return &Recovery{Context: ctx, Handler: handler}
 }
 
-/*Recovery swagger:route GET /api/session/recovery Session recovery
+/*Recovery swagger:route GET /auth/session/recovery Session recovery
 
 Recovery recovery API
 

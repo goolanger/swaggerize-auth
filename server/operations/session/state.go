@@ -29,7 +29,7 @@ func NewState(ctx *middleware.Context, handler StateHandler) *State {
 	return &State{Context: ctx, Handler: handler}
 }
 
-/*State swagger:route GET /api/session/state Session state
+/*State swagger:route GET /auth/session/state Session state
 
 State state API
 

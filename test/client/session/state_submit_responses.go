@@ -52,7 +52,7 @@ type StateSubmitOK struct {
 }
 
 func (o *StateSubmitOK) Error() string {
-	return fmt.Sprintf("[POST /api/session/state][%d] stateSubmitOK ", 200)
+	return fmt.Sprintf("[POST /auth/session/state][%d] stateSubmitOK ", 200)
 }
 
 func (o *StateSubmitOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -74,7 +74,7 @@ type StateSubmitInternalServerError struct {
 }
 
 func (o *StateSubmitInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /api/session/state][%d] stateSubmitInternalServerError  %+v", 500, o.Payload)
+	return fmt.Sprintf("[POST /auth/session/state][%d] stateSubmitInternalServerError  %+v", 500, o.Payload)
 }
 
 func (o *StateSubmitInternalServerError) GetPayload() string {

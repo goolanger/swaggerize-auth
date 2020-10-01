@@ -5,6 +5,7 @@ package server
 import (
 	"crypto/tls"
 	"github.com/goolanger/swaggerize-auth/pkg"
+	"github.com/goolanger/swaggerize-auth/pkg/auth"
 	"io"
 	"net/http"
 
@@ -26,11 +27,11 @@ var conf *pkg.Config
 func init() {
 	var err error
 
-	if conf, err = pkg.LoadConfig("config/development.conf"); err != nil {
+	if conf, err = pkg.LoadConfig("data/config/development.yaml"); err != nil {
 		panic(err)
 	}
 
-	if err = conf.Oauth.Init(&conf.Database, &conf.Mailer); err != nil {
+	if err = conf.Oauth.Init(&conf.Database, &conf.Mailer, auth.Asset); err != nil {
 		panic(err)
 	}
 }

@@ -48,17 +48,19 @@ func (a *Auth) RecoverAccount(email string) error {
 	return a.sendMail(email, "School - Recovery Link", redirect, files...)
 }
 
-func (a *Auth) sendMail(target, subject, redirect string, files ...string) error {
+func (a *Auth) sendMail(target, subject, link string, files ...string) error {
 	data := struct {
-		Redirect string
-	}{Redirect: redirect}
+		Link string
+	}{
+		Link: link,
+	}
 
 	body, err := a.parseTemplate(data, files...)
 	if err != nil {
 		return err
 	}
 
-	return a.mailer.SendMail(mail.Mail{
+	return a.mailer.SendMail(&mail.Mail{
 		From:    "noreply@host.com",
 		To:      []string{target},
 		Subject: subject,
@@ -67,8 +69,7 @@ func (a *Auth) sendMail(target, subject, redirect string, files ...string) error
 }
 
 func (a *Auth) parseTemplate(data interface{}, files ...string) ([]byte, error) {
-	ts, err := template.New("tmpl", Asset).ParseFiles(files...)
-	//ts, err := htmlt.ParseFiles(files...)
+	ts, err := template.New("tmpl", a.assets).ParseFiles(files...)
 
 	if err != nil {
 		return nil, err

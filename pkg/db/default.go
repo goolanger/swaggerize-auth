@@ -25,7 +25,7 @@ func (c *Default) Execute() *gorm.DB {
 	return c.connection
 }
 
-func (c *Default) Connect() error {
+func (c *Default) Init() error {
 	switch c.Handler {
 	case "postgres":
 		return c.Postgres()

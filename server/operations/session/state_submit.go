@@ -29,7 +29,7 @@ func NewStateSubmit(ctx *middleware.Context, handler StateSubmitHandler) *StateS
 	return &StateSubmit{Context: ctx, Handler: handler}
 }
 
-/*StateSubmit swagger:route POST /api/session/state Session stateSubmit
+/*StateSubmit swagger:route POST /auth/session/state Session stateSubmit
 
 StateSubmit state submit API
 

@@ -8,7 +8,6 @@ definitions:
       scopes:
         type: string
     type: object
-host: localhost:20443
 info:
   license:
     name: Apache 2.0
@@ -17,13 +16,12 @@ info:
     name: Amaury
     url: https://amaurydiaz.github.io
     email: amauryuh@gmail.com
-  description: This website will stand for the administration and information digital
-    support for any university.
-  title: University Staff
+  description: Oauth 2.0 api reference
+  title: Authentication
   version: 0.1.0
-  termsOfService: https://ulikeit.io/terms/
+  termsOfService: ""
 paths:
-  /api/oauth/authorize:
+  /auth/oauth/authorize:
     get:
       operationId: Authorize
       parameters:
@@ -101,7 +99,7 @@ paths:
       security: []
       tags:
       - Oauth
-  /api/oauth/providers/{provider}:
+  /auth/oauth/providers/{provider}:
     get:
       operationId: Provider
       parameters:
@@ -125,7 +123,7 @@ paths:
       security: []
       tags:
       - Oauth
-  /api/oauth/token:
+  /auth/oauth/token:
     post:
       consumes:
       - application/x-www-form-urlencoded
@@ -188,7 +186,7 @@ paths:
       security: []
       tags:
       - Oauth
-  /api/scope/info:
+  /auth/scope/info:
     get:
       operationId: Info
       produces:
@@ -213,7 +211,7 @@ paths:
       - scoped: []
       tags:
       - Scopes
-  /api/session/recovery:
+  /auth/session/recovery:
     get:
       operationId: Recovery
       parameters:
@@ -259,7 +257,7 @@ paths:
       security: []
       tags:
       - Session
-  /api/session/register:
+  /auth/session/register:
     get:
       operationId: Register
       parameters:
@@ -305,7 +303,7 @@ paths:
       security: []
       tags:
       - Session
-  /api/session/register/activate:
+  /auth/session/register/activate:
     get:
       operationId: RegisterActivate
       parameters:
@@ -323,7 +321,7 @@ paths:
       security: []
       tags:
       - Session
-  /api/session/state:
+  /auth/session/state:
     get:
       operationId: State
       parameters:
@@ -374,7 +372,7 @@ paths:
       security: []
       tags:
       - Session
-  /api/session/state/message:
+  /auth/session/state/message:
     get:
       operationId: StateMessage
       parameters:

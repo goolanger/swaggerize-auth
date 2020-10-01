@@ -29,7 +29,7 @@ func NewAuthorizeSubmit(ctx *middleware.Context, handler AuthorizeSubmitHandler)
 	return &AuthorizeSubmit{Context: ctx, Handler: handler}
 }
 
-/*AuthorizeSubmit swagger:route POST /api/oauth/authorize Oauth authorizeSubmit
+/*AuthorizeSubmit swagger:route POST /auth/oauth/authorize Oauth authorizeSubmit
 
 AuthorizeSubmit authorize submit API
 

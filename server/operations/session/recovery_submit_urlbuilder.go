@@ -39,7 +39,7 @@ func (o *RecoverySubmitURL) SetBasePath(bp string) {
 func (o *RecoverySubmitURL) Build() (*url.URL, error) {
 	var _result url.URL
 
-	var _path = "/api/session/recovery"
+	var _path = "/auth/session/recovery"
 
 	_basePath := o._basePath
 	_result.Path = golangswaggerpaths.Join(_basePath, _path)

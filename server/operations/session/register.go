@@ -29,7 +29,7 @@ func NewRegister(ctx *middleware.Context, handler RegisterHandler) *Register {
 	return &Register{Context: ctx, Handler: handler}
 }
 
-/*Register swagger:route GET /api/session/register Session register
+/*Register swagger:route GET /auth/session/register Session register
 
 Register register API
 

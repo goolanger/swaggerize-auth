@@ -52,7 +52,7 @@ type AuthorizeSubmitOK struct {
 }
 
 func (o *AuthorizeSubmitOK) Error() string {
-	return fmt.Sprintf("[POST /api/oauth/authorize][%d] authorizeSubmitOK ", 200)
+	return fmt.Sprintf("[POST /auth/oauth/authorize][%d] authorizeSubmitOK ", 200)
 }
 
 func (o *AuthorizeSubmitOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -74,7 +74,7 @@ type AuthorizeSubmitInternalServerError struct {
 }
 
 func (o *AuthorizeSubmitInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /api/oauth/authorize][%d] authorizeSubmitInternalServerError  %+v", 500, o.Payload)
+	return fmt.Sprintf("[POST /auth/oauth/authorize][%d] authorizeSubmitInternalServerError  %+v", 500, o.Payload)
 }
 
 func (o *AuthorizeSubmitInternalServerError) GetPayload() string {

@@ -52,7 +52,7 @@ type RecoveryOK struct {
 }
 
 func (o *RecoveryOK) Error() string {
-	return fmt.Sprintf("[GET /api/session/recovery][%d] recoveryOK ", 200)
+	return fmt.Sprintf("[GET /auth/session/recovery][%d] recoveryOK ", 200)
 }
 
 func (o *RecoveryOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -74,7 +74,7 @@ type RecoveryInternalServerError struct {
 }
 
 func (o *RecoveryInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /api/session/recovery][%d] recoveryInternalServerError  %+v", 500, o.Payload)
+	return fmt.Sprintf("[GET /auth/session/recovery][%d] recoveryInternalServerError  %+v", 500, o.Payload)
 }
 
 func (o *RecoveryInternalServerError) GetPayload() string {

@@ -29,7 +29,7 @@ func NewRecoverySubmit(ctx *middleware.Context, handler RecoverySubmitHandler) *
 	return &RecoverySubmit{Context: ctx, Handler: handler}
 }
 
-/*RecoverySubmit swagger:route POST /api/session/recovery Session recoverySubmit
+/*RecoverySubmit swagger:route POST /auth/session/recovery Session recoverySubmit
 
 RecoverySubmit recovery submit API
 

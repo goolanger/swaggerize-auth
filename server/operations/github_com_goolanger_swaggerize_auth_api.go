@@ -103,7 +103,7 @@ func NewGithubComGoolangerSwaggerizeAuthAPI(spec *loads.Document) *GithubComGool
 	}
 }
 
-/*GithubComGoolangerSwaggerizeAuthAPI This website will stand for the administration and information digital support for any university. */
+/*GithubComGoolangerSwaggerizeAuthAPI Oauth 2.0 api reference */
 type GithubComGoolangerSwaggerizeAuthAPI struct {
 	spec            *loads.Document
 	context         *middleware.Context
@@ -398,55 +398,55 @@ func (o *GithubComGoolangerSwaggerizeAuthAPI) initHandlerCache() {
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
-	o.handlers["GET"]["/api/oauth/authorize"] = oauth.NewAuthorize(o.context, o.OauthAuthorizeHandler)
+	o.handlers["GET"]["/auth/oauth/authorize"] = oauth.NewAuthorize(o.context, o.OauthAuthorizeHandler)
 	if o.handlers["POST"] == nil {
 		o.handlers["POST"] = make(map[string]http.Handler)
 	}
-	o.handlers["POST"]["/api/oauth/authorize"] = oauth.NewAuthorizeSubmit(o.context, o.OauthAuthorizeSubmitHandler)
+	o.handlers["POST"]["/auth/oauth/authorize"] = oauth.NewAuthorizeSubmit(o.context, o.OauthAuthorizeSubmitHandler)
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
-	o.handlers["GET"]["/api/scope/info"] = scopes.NewInfo(o.context, o.ScopesInfoHandler)
+	o.handlers["GET"]["/auth/scope/info"] = scopes.NewInfo(o.context, o.ScopesInfoHandler)
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
-	o.handlers["GET"]["/api/oauth/providers/{provider}"] = oauth.NewProvider(o.context, o.OauthProviderHandler)
+	o.handlers["GET"]["/auth/oauth/providers/{provider}"] = oauth.NewProvider(o.context, o.OauthProviderHandler)
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
-	o.handlers["GET"]["/api/session/recovery"] = session.NewRecovery(o.context, o.SessionRecoveryHandler)
+	o.handlers["GET"]["/auth/session/recovery"] = session.NewRecovery(o.context, o.SessionRecoveryHandler)
 	if o.handlers["POST"] == nil {
 		o.handlers["POST"] = make(map[string]http.Handler)
 	}
-	o.handlers["POST"]["/api/session/recovery"] = session.NewRecoverySubmit(o.context, o.SessionRecoverySubmitHandler)
+	o.handlers["POST"]["/auth/session/recovery"] = session.NewRecoverySubmit(o.context, o.SessionRecoverySubmitHandler)
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
-	o.handlers["GET"]["/api/session/register"] = session.NewRegister(o.context, o.SessionRegisterHandler)
+	o.handlers["GET"]["/auth/session/register"] = session.NewRegister(o.context, o.SessionRegisterHandler)
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
-	o.handlers["GET"]["/api/session/register/activate"] = session.NewRegisterActivate(o.context, o.SessionRegisterActivateHandler)
+	o.handlers["GET"]["/auth/session/register/activate"] = session.NewRegisterActivate(o.context, o.SessionRegisterActivateHandler)
 	if o.handlers["POST"] == nil {
 		o.handlers["POST"] = make(map[string]http.Handler)
 	}
-	o.handlers["POST"]["/api/session/register"] = session.NewRegisterSubmit(o.context, o.SessionRegisterSubmitHandler)
+	o.handlers["POST"]["/auth/session/register"] = session.NewRegisterSubmit(o.context, o.SessionRegisterSubmitHandler)
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
-	o.handlers["GET"]["/api/session/state"] = session.NewState(o.context, o.SessionStateHandler)
+	o.handlers["GET"]["/auth/session/state"] = session.NewState(o.context, o.SessionStateHandler)
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
-	o.handlers["GET"]["/api/session/state/message"] = session.NewStateMessage(o.context, o.SessionStateMessageHandler)
+	o.handlers["GET"]["/auth/session/state/message"] = session.NewStateMessage(o.context, o.SessionStateMessageHandler)
 	if o.handlers["POST"] == nil {
 		o.handlers["POST"] = make(map[string]http.Handler)
 	}
-	o.handlers["POST"]["/api/session/state"] = session.NewStateSubmit(o.context, o.SessionStateSubmitHandler)
+	o.handlers["POST"]["/auth/session/state"] = session.NewStateSubmit(o.context, o.SessionStateSubmitHandler)
 	if o.handlers["POST"] == nil {
 		o.handlers["POST"] = make(map[string]http.Handler)
 	}
-	o.handlers["POST"]["/api/oauth/token"] = oauth.NewToken(o.context, o.OauthTokenHandler)
+	o.handlers["POST"]["/auth/oauth/token"] = oauth.NewToken(o.context, o.OauthTokenHandler)
 }
 
 // Serve creates a http handler to serve the API over HTTP

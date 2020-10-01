@@ -29,7 +29,7 @@ func NewRegisterActivate(ctx *middleware.Context, handler RegisterActivateHandle
 	return &RegisterActivate{Context: ctx, Handler: handler}
 }
 
-/*RegisterActivate swagger:route GET /api/session/register/activate Session registerActivate
+/*RegisterActivate swagger:route GET /auth/session/register/activate Session registerActivate
 
 RegisterActivate register activate API
 

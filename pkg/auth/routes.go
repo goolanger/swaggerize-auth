@@ -13,22 +13,37 @@ type Router struct {
 	AppName string
 
 	// authorize
-	AuthorizePath string
+	OauthAuthorizePath string
+
+	// providers
+	OauthProviders string
 
 	// token
-	TokenPath string
+	OauthTokenPath string
 
 	// recovery
-	RecoveryPath string
+	SessionRecoveryPath string
 
 	// register
-	RegisterPath string
+	SessionRegisterPath string
+
+	// register activate
+	SessionRegisterActivatePath string
 
 	// state
-	StatePath string
+	SessionStatePath string
 
 	// state message
-	StateMessagePath string
+	SessionStateMessagePath string
+
+	// info
+	ScopeInfoPath string
+
+	// specs
+	SpecsPath string
+
+	// specs docs
+	SpecsDocsPath string
 
 	// params
 	Params string
@@ -36,14 +51,19 @@ type Router struct {
 
 func (a *Auth) DefaultRouter(params ...string) Router {
 	return Router{
-		AppName:          "Name",
-		AuthorizePath:    a.path("/api/oauth/authorize", params...),
-		TokenPath:        a.path("/api/oauth/token", params...),
-		RecoveryPath:     a.path("/api/session/recovery", params...),
-		RegisterPath:     a.path("/api/session/register", params...),
-		StatePath:        a.path("/api/session/state", params...),
-		StateMessagePath: a.path("/api/session/state/message", params...),
-		Params:           strings.Join(params, "&"),
+		AppName:                     "Name",
+		OauthAuthorizePath:          a.path("/oauth/authorize", params...),
+		OauthProviders:              a.path("/oauth/providers", params...),
+		OauthTokenPath:              a.path("/oauth/token", params...),
+		SessionRecoveryPath:         a.path("/session/recovery", params...),
+		SessionRegisterPath:         a.path("/session/register", params...),
+		SessionRegisterActivatePath: a.path("/session/register/activate", params...),
+		SessionStatePath:            a.path("/session/state", params...),
+		SessionStateMessagePath:     a.path("/session/state/message", params...),
+		ScopeInfoPath:               a.path("/scope/info", params...),
+		SpecsPath:                   a.path("/specs"),
+		SpecsDocsPath:               a.path("/docs"),
+		Params:                      strings.Join(params, "&"),
 	}
 }
 
@@ -52,16 +72,16 @@ func (a *Auth) path(path string, params ...string) string {
 	if len(params) > 0 {
 		path += "?" + strings.Join(params, "&")
 	}
-	return path
+	return "/auth" + path
 }
 
 // HTML
 func (a *Auth) viewPage(format string, args ...interface{}) string {
 	page := fmt.Sprintf(format, args...)
-	return HtmlFolder + "/views/" + a.Template + page
+	return HtmlFolder + "/views" + page
 }
 
 func (a *Auth) mailPage(format string, args ...interface{}) string {
 	page := fmt.Sprintf(format, args...)
-	return HtmlFolder + "/mail/" + a.Template + page
+	return HtmlFolder + "/mail" + page
 }
