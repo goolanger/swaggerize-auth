@@ -175,7 +175,7 @@ func (a *Auth) Middleware(next http.Handler) http.Handler {
 				params,
 			}
 
-			viewPack.Router.SessionStatePath = a.path(routes.SessionStatePath, "action=recovery")
+			viewPack.Router.SessionStatePath = a.path(routes.SessionStatePath, r.URL.RawQuery, "action=recovery")
 
 			a.serveTemplate(w, viewPack, files...)
 		} else
