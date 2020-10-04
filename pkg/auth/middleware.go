@@ -12,15 +12,25 @@ import (
 )
 
 type ViewPack struct {
-	Router    Router
+	// router
+	Router Router
+
+	// providers
 	Providers []ProviderLink
-	Params    interface{}
+
+	// params
+	Params interface{}
 }
 
 type UserInfo struct {
-	ID       string `json:"id"`
-	Email    string `json:"email"`
-	Verified bool   `json:"verified_email"`
+	// id
+	ID string `json:"id"`
+
+	// email
+	Email string `json:"email"`
+
+	// verified
+	Verified bool `json:"verified_email"`
 }
 
 type AuthorizeParams struct {

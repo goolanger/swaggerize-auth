@@ -24,7 +24,9 @@
 
     <div>
         {{range .Providers}}
-            <a href="{{.Link}}">Login with {{.Name}}</a>
+            <div>
+                <a href="{{.Link}}">Login with <span>{{.Name}}</span></a>
+            </div>
         {{end}}
     </div>
 {{end}}
