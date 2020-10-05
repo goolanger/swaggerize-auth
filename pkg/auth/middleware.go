@@ -228,12 +228,12 @@ func (a *Auth) Middleware(next http.Handler) http.Handler {
 			}
 
 			var (
-				user *User
+				user *Identity
 				err  error
 			)
 
-			if user, err = a.GetUserByEmail(userInfo.Email); err != nil {
-				if user, err = a.CreateUser(userInfo.Email, userInfo.ID, false, userInfo.Verified); err != nil {
+			if user, err = a.GetIdentityByEmail(userInfo.Email); err != nil {
+				if user, err = a.CreateIdentity(userInfo.Email, userInfo.ID, false, userInfo.Verified); err != nil {
 					http.Error(w, err.Error(), http.StatusInternalServerError)
 					return
 				}
@@ -303,7 +303,7 @@ func (a *Auth) Middleware(next http.Handler) http.Handler {
 				return
 			}
 
-			user, err := a.GetUserById(userId)
+			user, err := a.GetIdentityById(userId)
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
@@ -340,7 +340,7 @@ func (a *Auth) Middleware(next http.Handler) http.Handler {
 				return
 			}
 
-			user, err := a.GetUserById(userId)
+			user, err := a.GetIdentityById(userId)
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
@@ -378,12 +378,12 @@ func (a *Auth) Middleware(next http.Handler) http.Handler {
 				Password: r.FormValue("password"),
 			}
 
-			if user, _ := a.GetUserByEmail(params.Email); user != nil {
+			if user, _ := a.GetIdentityByEmail(params.Email); user != nil {
 				http.Error(w, "user already register", http.StatusConflict)
 				return
 			}
 
-			if user, err := a.CreateUser(params.Email, params.Password, true, false); err != nil {
+			if user, err := a.CreateIdentity(params.Email, params.Password, true, false); err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
 			} else if err := a.ActivateAccount(user.Email); err != nil {
@@ -485,7 +485,7 @@ func (a *Auth) Middleware(next http.Handler) http.Handler {
 				return
 			}
 
-			user, err := a.GetUserById(id)
+			user, err := a.GetIdentityById(id)
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return

@@ -49,7 +49,7 @@ func (a *Auth) Init(connection db.Connection, mailer mail.Mailer, assets templat
 	// Init Assets
 	a.assets = assets
 
-	if err := a.connection.Execute().AutoMigrate(&User{}); err != nil {
+	if err := a.connection.Execute().AutoMigrate(&Identity{}); err != nil {
 		return err
 	}
 
@@ -106,9 +106,9 @@ func (a *Auth) UserAuthorizeHandler() server.UserAuthorizationHandler {
 
 func (a *Auth) PasswordAuthorizationHandler() server.PasswordAuthorizationHandler {
 	return func(username, password string) (userID string, err error) {
-		var user *User
+		var user *Identity
 
-		user, err = a.GetUserByEmail(username)
+		user, err = a.GetIdentityByEmail(username)
 		if err != nil {
 			return
 		}

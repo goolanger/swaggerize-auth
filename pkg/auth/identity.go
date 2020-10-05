@@ -4,7 +4,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-type User struct {
+type Identity struct {
 	// id
 	ID int64 `json:"id,omitempty" gorm:"primary_key"`
 
@@ -31,28 +31,28 @@ func (a *Auth) GetDigest(password string) (digest string, err error) {
 	return
 }
 
-func (a *Auth) GetUserByEmail(email string) (*User, error) {
-	var user User
+func (a *Auth) GetIdentityByEmail(email string) (*Identity, error) {
+	var user Identity
 	if err := a.connection.Execute().First(&user, "email = ?", email).Error; err != nil {
 		return nil, err
 	}
 	return &user, nil
 }
 
-func (a *Auth) GetUserById(id int64) (*User, error) {
-	var user User
+func (a *Auth) GetIdentityById(id int64) (*Identity, error) {
+	var user Identity
 	if err := a.connection.Execute().First(&user, id).Error; err != nil {
 		return nil, err
 	}
 	return &user, nil
 }
 
-func (a *Auth) CreateUser(email, password string, active, verified bool) (user *User, err error) {
+func (a *Auth) CreateIdentity(email, password string, active, verified bool) (user *Identity, err error) {
 	if password, err = a.GetDigest(password); err != nil {
 		return
 	}
 
-	user = &User{
+	user = &Identity{
 		Email:    email,
 		Active:   active,
 		Verified: verified,

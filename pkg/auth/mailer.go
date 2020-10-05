@@ -12,7 +12,7 @@ func (a *Auth) ActivateAccount(email string) error {
 		a.mailPage("/base.tmpl"),
 	}
 
-	var user User
+	var user Identity
 	if err := a.connection.Execute().First(&user, "email = ?", email).Error; err != nil {
 		return err
 	}
@@ -33,7 +33,7 @@ func (a *Auth) RecoverAccount(email string) error {
 		a.mailPage("/base.tmpl"),
 	}
 
-	var user User
+	var user Identity
 	if err := a.connection.Execute().First(&user, "email = ?", email).Error; err != nil {
 		return err
 	}
