@@ -22,7 +22,7 @@ func (a *Auth) ActivateAccount(email string) error {
 		return err
 	}
 
-	redirect := "https://localhost:20443/auth/session/register/activate?token=" + token
+	redirect := "https://" + a.ClientDomain + "/auth/session/register/activate?token=" + token
 
 	return a.sendMail(email, "School - Account Activation", redirect, files...)
 }
@@ -43,7 +43,7 @@ func (a *Auth) RecoverAccount(email string) error {
 		return err
 	}
 
-	redirect := "https://localhost:20443/auth/session/recovery?token=" + token
+	redirect := "https://" + a.ClientDomain + "/auth/session/recovery?token=" + token
 
 	return a.sendMail(email, "School - Recovery Link", redirect, files...)
 }
