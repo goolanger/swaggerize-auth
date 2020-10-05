@@ -6,6 +6,7 @@ import (
 	"github.com/goolanger/swaggerize-auth/pkg/mail"
 	"github.com/sethvargo/go-password/password"
 	"golang.org/x/oauth2"
+	"golang.org/x/oauth2/google"
 	"gopkg.in/yaml.v3"
 	"io/ioutil"
 	"time"
@@ -55,7 +56,9 @@ func DefaultConfig(file string) ([]byte, error) {
 			Providers: map[string]auth.Provider{
 				"google": {
 					InfoUrl: "https://www.googleapis.com/oauth2/v2/userinfo?access_token={token}",
-					Config:  oauth2.Config{},
+					Config: oauth2.Config{
+						Endpoint: google.Endpoint,
+					},
 				},
 			},
 		},
